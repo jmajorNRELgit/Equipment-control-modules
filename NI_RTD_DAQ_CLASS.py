@@ -32,8 +32,6 @@ class DAQ(object):
                                      resistance_config = ResistanceConfiguration.THREE_WIRE,
                                      units=TemperatureUnits.DEG_C,
                                      current_excit_val= .001)
-<<<<<<< HEAD
-
 
 
 
@@ -41,15 +39,6 @@ class DAQ(object):
     def read_all_channels(self):
         '''Reads all RTD channels assigned in __init__ and returns a list of the readout'''
 
-=======
-        
-    
-        
-        
-    '''Reads all RTD channels assigned in __init__ and returns a list of the readout'''    
-    def read_DAQ_temps(self):
-        
->>>>>>> a9e2e5a8e60b02d9a254931b1b3ed73581a95fde
         temperatures = self.task.read(1)
 
         flat = [item for sublist in temperatures for item in sublist] #takes the list of lists and flattens it
@@ -101,39 +90,14 @@ class DAQ(object):
         '''Closes the task'''
 
         self.task.close()
-<<<<<<< HEAD
+
         self.task2.close()
 
 
-if __name__ == "__main__":
-    daq = DAQ()
-    daq.set_specific_channels([2])
-=======
- 
-        
-    def set_channels(self,channels):
-        self.task2 = nidaqmx.Task()
-        
-        self.channels2 = channels #RTD channels. 
-        
-        for i in self.channels2:
-        
-            self.task2.ai_channels.add_ai_rtd_chan('cDAQ1Mod1/ai{0}'.format(i), ###open the program NIMAX to see channel names###
-                                     current_excit_source=ExcitationSource.INTERNAL,
-                                     resistance_config = ResistanceConfiguration.THREE_WIRE,
-                                     units=TemperatureUnits.DEG_C,
-                                     current_excit_val= .001)
 
-    def read_channels(self):
-        temperatures2 = self.task2.read(1)
-        
-        flat = [item for sublist in temperatures2 for item in sublist] #takes the list of lists and flattens it
-        flat = [round(num, 4) for num in flat] #rounds each float in the list
-        return flat
-    
-    
+
 if __name__ == '__main__':
     daq = DAQ()
-    daq.set_channels([2,4,5,7])
-    daq.read_channels()
->>>>>>> a9e2e5a8e60b02d9a254931b1b3ed73581a95fde
+    daq.set_specific_channels([2,5,7])
+    print(daq.read_specific_channels())
+
